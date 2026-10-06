@@ -1,0 +1,69 @@
+# Render blueprint for the SH-205 backend.
+#
+# Deploy: Render dashboard -> New -> Blueprint -> pick this repository.
+# Render reads this file, creates the database and the web service, and
+# wires DATABASE_URL between them automatically.
+#
+# Secrets are deliberately NOT here. Every value marked `sync: false` must
+# be set once in the Render dashboard; nothing secret belongs in git.
+
+databases:
+  - name: sh205-db
+    databaseName: sh205
+    user: sh205
+    plan: free
+
+services:
+  - type: web
+    name: sh205-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    # One worker: the simulation clock and world state live in process
+    # memory, so a second worker would keep a divergent copy of the world.
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sh205-db
+          property: connectionString
+
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: "false"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: LOG_JSON
+        value: "true"
+
+      # AUTH_MODE=disabled is refused when ENVIRONMENT=production.
+      - key: AUTH_MODE
+        value: firebase
+
+      # Comma-separated. Set to the Vercel production URL after the frontend
+      # is deployed; preview deployments are covered by CORS_ORIGIN_REGEX.
+      - key: CORS_ORIGINS
+        sync: false
+      - key: CORS_ORIGIN_REGEX
+        value: https://.*\.vercel\.app
+
+      # The entire service-account JSON, pasted as one value.
+      - key: FIREBASE_CREDENTIALS_JSON
+        sync: false
+
+      # Public Firebase web config, served to the browser by
+      # GET /auth/web-config. Not credentials.
+      - key: FIREBASE_API_KEY
+        sync: false
+      - key: FIREBASE_AUTH_DOMAIN
+        sync: false
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: FIREBASE_APP_ID
+        sync: false
+
+      - key: FIRESTORE_ENABLED
+        value: "false"

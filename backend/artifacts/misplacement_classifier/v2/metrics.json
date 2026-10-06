@@ -1,0 +1,27 @@
+{
+  "model_name": "misplacement_classifier",
+  "version": "v2",
+  "selected_model": "RandomForest",
+  "selection_rationale": "Depth-capped RandomForest exported for serving. v1's unlimited-depth forest was 214 MB \u2014 past GitHub's 100 MB file limit and too large for a small web dyno \u2014 while scoring 0.4999 test ROC-AUC. Capping depth removes the size without a meaningful accuracy change.",
+  "test_metrics": {
+    "roc_auc": 0.48367522936939944,
+    "pr_auc": 0.2989709412166847,
+    "accuracy": 0.4706570807557265,
+    "precision": 0.29440688383527963,
+    "recall": 0.524070021881838,
+    "f1": 0.37701692247146795,
+    "brier_score": 0.25016411184349796,
+    "log_loss": 0.6934758523584934,
+    "threshold": 0.5,
+    "confusion_matrix": {
+      "tn": 1857,
+      "fp": 2296,
+      "fn": 870,
+      "tp": 958
+    },
+    "sample_count": 5981,
+    "positive_count": 1828,
+    "positive_rate": 0.30563450927938474
+  },
+  "evaluation_timestamp": "2026-09-21T17:20:26.238029+00:00"
+}

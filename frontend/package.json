@@ -1,0 +1,13 @@
+{
+  "name": "maarg-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MAARG static site (plain HTML/JS, no bundler). `build` generates js/config.js from the environment; `dev` does that and then serves sidecar-site/ on http://localhost:5173.",
+  "scripts": {
+    "build": "node scripts/generate-config.js",
+    "dev": "npm run build && python -m http.server 5173 --directory sidecar-site"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

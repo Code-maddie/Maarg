@@ -1,0 +1,31 @@
+# SH-205 backend dependencies.
+#
+# Python 3.14 is the target interpreter (see runtime.txt). pydantic < 2.12
+# publishes no cp314 wheel for pydantic-core and falls back to a Rust build
+# that needs a full MSVC/cargo toolchain, so keep pydantic at >= 2.12.
+
+# --- Web framework ---
+fastapi==0.128.0
+uvicorn[standard]==0.38.0
+pydantic==2.12.5
+pydantic-settings==2.12.0
+python-dotenv==1.1.1
+
+# --- Persistence ---
+# SQLite locally, PostgreSQL in production. Only DATABASE_URL changes.
+SQLAlchemy==2.0.44
+alembic==1.20.0
+psycopg[binary]==3.2.12
+
+# --- E1 inference ---
+# Pinned to the versions recorded in the artifact's training_metadata.json
+# so model.pkl unpickles without a version warning.
+scikit-learn==1.9.0
+pandas==3.0.6
+joblib==1.6.0
+
+# --- Realtime ---
+websockets==17.1
+
+# --- Firebase Admin (auth + Firestore) ---
+firebase-admin==7.6.0

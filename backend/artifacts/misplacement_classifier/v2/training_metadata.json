@@ -1,0 +1,93 @@
+{
+  "model_name": "misplacement_classifier",
+  "version": "v2",
+  "derived_from": "v1 (e1-model/softHack/artifacts/misplacement_classifier/v1)",
+  "purpose": "Deployment artifact: same feature contract as v1, sized to ship.",
+  "training_timestamp": "2026-09-21T17:20:18.252464+00:00",
+  "completion_timestamp": "2026-09-21T17:20:26.241534+00:00",
+  "dataset_names": [
+    "Zenodo Multimodal Industrial Logistics Disruption and Risk Dataset (DOI: 10.5281/zenodo.18050317)"
+  ],
+  "dataset_row_counts": {
+    "canonical_training_e1": 39864,
+    "train_split": 27904,
+    "validation_split": 5979,
+    "test_split": 5981
+  },
+  "feature_names": [
+    "route",
+    "hub",
+    "carrier",
+    "congestion_index",
+    "num_handoffs",
+    "sorting_method",
+    "weather_flag",
+    "hour_of_day"
+  ],
+  "target_definition": "misplaced = 1 if disruption_type > 0 else 0",
+  "proxy_label_explanation": "E1 prototype disruption/misplacement-risk proxy label derived from Zenodo disruption_type > 0. It is NOT a verified physical lost-parcel scan.",
+  "target_positive_rate": 0.30139975918121614,
+  "train_validation_test_date_ranges": {
+    "train": [
+      "2021-03-14 00:00:00",
+      "2024-05-19 15:00:00"
+    ],
+    "validation": [
+      "2024-05-19 16:00:00",
+      "2025-01-23 18:00:00"
+    ],
+    "test": [
+      "2025-01-23 19:00:00",
+      "2025-09-29 23:00:00"
+    ]
+  },
+  "model_class": "RandomForestClassifier",
+  "model_parameters": {
+    "bootstrap": "True",
+    "ccp_alpha": "0.0",
+    "class_weight": "balanced",
+    "criterion": "gini",
+    "max_depth": "8",
+    "max_features": "sqrt",
+    "max_leaf_nodes": "None",
+    "max_samples": "None",
+    "min_impurity_decrease": "0.0",
+    "min_samples_leaf": "40",
+    "min_samples_split": "2",
+    "min_weight_fraction_leaf": "0.0",
+    "monotonic_cst": "None",
+    "n_estimators": "60",
+    "n_jobs": "1",
+    "oob_score": "False",
+    "random_state": "42",
+    "verbose": "0",
+    "warm_start": "False"
+  },
+  "metrics": {
+    "validation": {},
+    "test": {
+      "roc_auc": 0.48367522936939944,
+      "pr_auc": 0.2989709412166847,
+      "accuracy": 0.4706570807557265,
+      "precision": 0.29440688383527963,
+      "recall": 0.524070021881838,
+      "f1": 0.37701692247146795,
+      "brier_score": 0.25016411184349796,
+      "log_loss": 0.6934758523584934,
+      "threshold": 0.5,
+      "confusion_matrix": {
+        "tn": 1857,
+        "fp": 2296,
+        "fn": 870,
+        "tp": 958
+      },
+      "sample_count": 5981,
+      "positive_count": 1828,
+      "positive_rate": 0.30563450927938474
+    }
+  },
+  "sklearn_version": "1.9.0",
+  "pandas_version": "3.0.6",
+  "joblib_version": "1.6.0",
+  "python_version": "3.14.0"
+}

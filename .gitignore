@@ -1,0 +1,55 @@
+# --- Secrets (never commit) ---
+.env
+*.env
+!*.env.example
+backend/credentials/
+**/serviceAccount*.json
+**/firebase-credentials.json
+**/firebase-service-account.json
+
+# Generated at build time from the environment; holds the Google Maps key.
+frontend/sidecar-site/js/config.js
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+
+# --- Node ---
+node_modules/
+dist/
+.next/
+.vercel/
+
+# --- Local databases ---
+# The deployed backend runs on PostgreSQL; these are local SQLite artifacts.
+*.db
+*.db-shm
+*.db-wal
+
+# --- Large ML assets (kept on disk, out of git) ---
+# Raw training corpora, ~90 MB. Re-downloadable from the cited sources and
+# needed only to retrain E1.
+e1-model/softHack/data/raw/
+e1-model/softHack/data/processed/
+
+# The v1 training artifact: model.pkl alone is 214 MB, past GitHub's 100 MB
+# per-file limit. The deployable v2 artifact under backend/artifacts/ is
+# committed instead — see e1-model/softHack/scripts/export_serving_model.py.
+e1-model/softHack/artifacts/
+
+# --- Test output ---
+backend/tests_ui/artifacts/
+
+# Internal hackathon brief; not part of the public portfolio copy.
+docs/SH-205-spec.docx
+
+# --- OS / editors ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -908,20 +908,6 @@ The production frontend communicates with the FastAPI backend hosted on Render.
 
 ---
 
-# 👨‍💻 Author
-
-### Sathwik Prabhu
-
-Computer Science & Engineering — AI & ML
-
-VNR VJIET
-
-GitHub:
-
-https://github.com/SathwikPrabhu-07
-
----
-
 # ⭐ Why Maarg?
 
 Most logistics systems optimise movement.
